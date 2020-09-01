@@ -56,11 +56,11 @@ echo Name,Version > {installables}_metadata.csv
 dpkg_deb_path=$(which dpkg-deb)
 for item in $items; do
     pkg_name=$($dpkg_deb_path -f $item Package)
-    if [ $pkg_name = "" ]; then
+    if [ -z "$pkg_name" ]; then
         echo "Failed to get name of the package for $item" && false
     fi
     pkg_version=$($dpkg_deb_path -f $item Version)
-    if [ $pkg_version = "" ]; then
+    if [ -z "$pkg_version" ]; then
         echo "Failed to get the version of the package for $item" && false
     fi
     echo -n "$pkg_name," >> {installables}_metadata.csv
